@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude + Figma — Best Practices</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fafafa;
+      padding: 2rem 1rem;
+    }
+
+    nav {
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    nav a { color: #7B61FF; text-decoration: none; font-weight: 600; }
+    nav a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      padding: 3rem 3.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #222;
+      margin: 1.8rem 0 0.6rem;
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+      margin: 1.2rem 0 0.3rem;
+    }
+
+    p { margin-bottom: 0.9rem; }
+
+    a {
+      color: #7B61FF;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    ul, ol {
+      margin: 0.5rem 0 1rem 1.4rem;
+    }
+    li { margin-bottom: 0.35rem; }
+
+    code {
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 0.85em;
+      background: #f3f0ff;
+      color: #5a3fd9;
+      padding: 0.15em 0.45em;
+      border-radius: 4px;
+    }
+
+    blockquote {
+      border-left: 3px solid #7B61FF;
+      margin: 1rem 0;
+      padding: 0.6rem 1rem;
+      background: #f9f8ff;
+      color: #444;
+      font-style: italic;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+    .tag-figma { background: #e8f5e9; color: #2e7d32; }
+    .tag-claude { background: #f3f0ff; color: #5a3fd9; }
+    .tag-both { background: #fff3e0; color: #e65100; }
+
+    .tip-block {
+      background: #f9f8ff;
+      border-left: 3px solid #7B61FF;
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.1rem;
+      margin: 1rem 0;
+    }
+    .tip-block h4 { margin-top: 0; color: #5a3fd9; }
+
+    .workflow-block {
+      background: #f7f7f7;
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      margin: 1.2rem 0;
+      border: 1px solid #ececec;
+    }
+    .workflow-block h3 { margin-top: 0; }
+
+    .problem { color: #c0392b; font-size: 0.9rem; margin-bottom: 0.6rem; }
+    .why { color: #27ae60; font-size: 0.9rem; margin-top: 0.6rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.93rem;
+    }
+    th {
+      background: #f3f0ff;
+      color: #5a3fd9;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+    }
+    td {
+      padding: 0.55rem 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+
+    .bad-good {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin: 0.6rem 0 1rem;
+    }
+    .bad {
+      background: #fff5f5;
+      border: 1px solid #fdd;
+      border-radius: 6px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.9rem;
+    }
+    .good {
+      background: #f0fff4;
+      border: 1px solid #c3e6cb;
+      border-radius: 6px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.9rem;
+    }
+    .bad strong, .good strong {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+      color: #888;
+    }
+
+    .warning-block {
+      background: #fff8e1;
+      border-left: 3px solid #f9a825;
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.1rem;
+      margin: 1rem 0;
+    }
+
+    .sources {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #eee;
+      font-size: 0.85rem;
+      color: #888;
+    }
+    .sources h2 {
+      font-size: 0.9rem;
+      color: #aaa;
+      border: none;
+      margin: 0 0 0.6rem;
+    }
+    .sources ol { margin-left: 1.2rem; }
+    .sources li { margin-bottom: 0.3rem; }
+    .sources a { color: #aaa; }
+    .sources a:hover { color: #7B61FF; }
+
+    hr { border: none; border-top: 1px solid #f0f0f0; margin: 2rem 0; }
+  </style>
+</head>
+<body>
+  <nav><a href="index.html">← All guides</a></nav>
+  <div class="page">
+
+    <h1>Claude + Figma — Best Practices</h1>
+    <p class="subtitle">A practical guide for designers, PMs, and developers using Claude alongside Figma.</p>
+
+    <!-- CORE IDEA -->
+    <h2>The core idea</h2>
+    <p>
+      Figma AI works <em>inside the canvas</em> — it generates layouts, rewrites copy, removes backgrounds.
+      Claude works <em>around the canvas</em> — it thinks, writes, explains, and prepares.
+      The two complement each other; they don't overlap much.
+    </p>
+    <p>
+      <span class="tag tag-figma">Figma AI</span> in-canvas tasks: copy variants, auto-layout, visual cleanup<br>
+      <span class="tag tag-claude">Claude</span> thinking, writing, explaining, and anything that requires context
+    </p>
+    <p>
+      For developers, there's a dedicated <strong><a href="https://claude.com/plugins/figma" target="_blank">Figma plugin for Claude</a></strong>
+      that connects the two tools directly — Claude can read your Figma files, extract components, tokens, and layout data,
+      and translate designs into production code.
+    </p>
+
+    <!-- PLUGIN SECTION -->
+    <h2>For developers: the Figma plugin for Claude</h2>
+    <p>
+      Install the plugin at <a href="https://claude.com/plugins/figma" target="_blank">claude.com/plugins/figma</a>.
+      It gives Claude direct access to your Figma files so you don't have to copy-paste anything manually.
+    </p>
+
+    <h4>What it can do</h4>
+    <ul>
+      <li>Extract structured design data (layout, typography, colors, spacing) from any Figma frame</li>
+      <li>Read design variables and tokens for consistency with your codebase</li>
+      <li>Map Figma components to existing code via Code Connect</li>
+      <li>Capture visual references for design validation</li>
+    </ul>
+
+    <h4>Key commands</h4>
+    <ul>
+      <li><code>/implement-design</code> — paste a Figma URL, get production-ready code using your design system</li>
+      <li><code>/create-design-system-rules</code> — generates custom guidelines encoding your team's conventions</li>
+      <li><code>/code-connect-components</code> — maps Figma components to their codebase counterparts</li>
+    </ul>
+
+    <h4>Example prompts</h4>
+    <ul>
+      <li>"Implement this Figma design: [paste Figma URL]"</li>
+      <li>"Extract the color variables from this design file"</li>
+      <li>"Connect my Button component to its Figma counterpart"</li>
+      <li>"Create design system rules for my React project"</li>
+    </ul>
+
+    <p>
+      <strong>The full loop this enables:</strong>
+      Figma design → Claude reads it → code generated → developer adjusts → design validated against implementation.
+      No more manual handoff or screenshot-based reviews.
+    </p>
+
+    <div class="tip-block">
+      <h4>Going further — bidirectional sync (advanced)</h4>
+      <p>
+        The traditional one-way handoff (Figma → code) is increasingly obsolete. Using Figma's MCP, teams can extract live interfaces
+        from production, staging, or localhost <em>back into</em> Figma, collaborate on changes, then push back to code.
+        This prevents design drift — designers always work from actual implemented state, not outdated specs.
+      </p>
+      <p style="margin-bottom:0; font-size:0.85rem; color:#888;">
+        Source: Gui Seiz &amp; Alex Kern, Figma —
+        <a href="https://www.lennysnewsletter.com/p/this-week-on-how-i-ai-from-figma" target="_blank">"From Figma to Claude Code and back"</a>,
+        Lenny's Newsletter
+      </p>
+    </div>
+
+    <!-- ADVANCED WORKFLOWS -->
+    <h2>Advanced workflows (developer + designer together)</h2>
+    <p>
+      These workflows come from how Figma's own team operates. They require Claude Code + Figma MCP set up,
+      but represent where the industry is heading.
+      <span style="font-size:0.85rem; color:#888;">
+        (Source: <a href="https://www.chatprd.ai/how-i-ai/how-figma-team-syncs-design-and-code-with-claude-code-and-codex" target="_blank">"How Figma team syncs design and code with Claude Code and Codex"</a>, ChatPRD)
+      </span>
+    </p>
+
+    <div class="workflow-block">
+      <h3>Workflow 1: The code-to-design-to-code sandwich</h3>
+      <p class="problem">⚠ Problem: Design and production code drift apart. Designers end up redesigning things that are already built differently.</p>
+      <h4>How it works</h4>
+      <ol>
+        <li>Run your local app (or point to staging/production)</li>
+        <li>Open Codex connected to Figma's MCP</li>
+        <li>Prompt: <em>"send the [page name] to Figma"</em></li>
+        <li>Production code converts to fully editable Figma layers (vectors, text, shapes)</li>
+        <li>Designer makes changes directly in Figma — colors, layout, copy, spacing</li>
+        <li>Copy the updated Figma frame URL</li>
+        <li>In Claude Code, prompt: <em>"bring the changes from this Figma frame into my codebase — [paste URL]"</em></li>
+        <li>Claude analyzes the diff and generates code patches. App updates to match Figma exactly.</li>
+      </ol>
+      <p class="why">✓ Designers work on actual implemented UI, not a guess. Developers get precise diffs, not vague feedback. No manual CSS translation.</p>
+    </div>
+
+    <div class="workflow-block">
+      <h3>Workflow 2: Batch export all component states</h3>
+      <p class="problem">⚠ Problem: Designers work blind — they only see the happy-path state, not error, loading, empty, or edge-case states.</p>
+      <h4>How it works</h4>
+      <ul>
+        <li>Engineer runs a single Claude Code command: <em>"send all [N] states of the [component] to Figma"</em></li>
+        <li>Claude inspects the codebase, identifies all component variations (default, error, success, loading, disabled, etc.)</li>
+        <li>Exports all states as individual editable components in Figma, arranged side-by-side</li>
+      </ul>
+      <p class="why">✓ Designers can refine what users actually experience, not just the ideal flow. Catches edge-case UX issues before they ship.</p>
+    </div>
+
+    <div class="workflow-block">
+      <h3>Workflow 3: Automate your pre-ship checklist with a <code>/ship</code> skill</h3>
+      <p class="problem">⚠ Problem: Pre-merge checklists are repetitive and error-prone when done manually.</p>
+      <h4>How it works</h4>
+      <ul>
+        <li>Create a Claude skill called <code>/ship</code> that encodes your team's standard pre-merge process</li>
+        <li>When triggered, it automatically: runs lint, runs build, pushes to Git, monitors CI/CD, auto-fixes minor lint errors (up to 5 retries), and surfaces anything that needs human attention</li>
+        <li>Safety guardrails built in: no force pushes, no credential commits</li>
+      </ul>
+      <p class="why">✓ Engineer types <code>/ship</code> and walks away. The same principle applies to any repeatable workflow — design review checklists, handoff steps, accessibility audits.</p>
+    </div>
+
+    <!-- BEFORE FIGMA -->
+    <h2>Before you open Figma</h2>
+    <p>This is where Claude saves the most time.</p>
+
+    <div class="tip-block">
+      <h4>Turn a vague brief into a structured one</h4>
+      <p>Paste the raw requirement or client email. Ask Claude to extract: the user goal, the constraints, the edge cases to design for, and the open questions you need to answer before starting.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Draft all copy before designing</h4>
+      <p>Writing copy inside Figma is slow. Write it in Claude first. Give Claude: the screen name, the user's goal at that moment, the desired tone. Ask for 2–3 options. Pick one, then design around it.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Map user flows in words</h4>
+      <p>Describe a feature. Ask Claude: "What are all the states this screen can be in?" or "What can go wrong in this flow?" You'll catch edge cases before you've drawn a single frame.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Research quickly</h4>
+      <p>Ask Claude how similar products handle a UX pattern, what accessibility requirements apply, or what standard microcopy looks like for a given action (e.g. form errors, empty states, confirmation dialogs).</p>
+    </div>
+
+    <!-- WHILE DESIGNING -->
+    <h2>While designing</h2>
+
+    <div class="tip-block">
+      <h4>Generate realistic placeholder content</h4>
+      <p>Fake Latin text makes designs look fake. Ask Claude for realistic names, addresses, product descriptions, error messages, or notification copy that matches your actual use case.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Write and refine UI copy</h4>
+      <p>Paste your draft copy. Tell Claude: the character limit, the user's context, the tone. Ask it to rewrite, shorten, or generate alternatives. Iterate in Claude — paste the final version into Figma.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Name components and design tokens</h4>
+      <p>Paste your component list and ask Claude to suggest a consistent naming convention. Or paste your color/spacing values and ask for naming that fits a design system.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Check accessibility</h4>
+      <p>Describe a screen in words (layout, colors, interactive elements). Ask Claude: "What accessibility issues might this have?" It won't replace a proper audit but will catch obvious problems early.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Write interaction notes</h4>
+      <p>Describe a micro-interaction. Ask Claude to write the developer handoff note for it — trigger, behavior, animation, edge cases. Paste directly into your Figma annotation.</p>
+    </div>
+
+    <!-- AFTER DESIGNING -->
+    <h2>After designing</h2>
+
+    <div class="tip-block">
+      <h4>Write the handoff document</h4>
+      <p>Paste your component/screen list. Ask Claude to generate a structured handoff note: what each component does, its states, how it responds to interactions, and open questions for the dev team.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Prepare client presentation narrative</h4>
+      <p>Paste your design decisions. Ask Claude to write a short narrative explaining the rationale — "we chose X because the user at this point is Y." Saves 30–60 minutes of prep before every presentation.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Respond to feedback</h4>
+      <p>Paste the client or stakeholder feedback. Ask Claude to help you draft a structured, professional response: what you'll change, what you won't and why, and what questions you need answered before proceeding.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Write a design decisions log</h4>
+      <p>After each major design sprint, paste your key decisions into Claude and ask it to format them as a decisions log. Over time this becomes invaluable context for onboarding, audits, and client conversations.</p>
+    </div>
+
+    <!-- PROMPTING TIPS -->
+    <h2>Prompting tips</h2>
+
+    <div class="tip-block">
+      <h4>Give context, not just the task</h4>
+      <div class="bad-good">
+        <div class="bad"><strong>Bad</strong>"Write button copy."</div>
+        <div class="good"><strong>Good</strong>"Write button copy for a confirmation screen where the user is about to delete their account. Tone: serious but not alarming. Max 3 words."</div>
+      </div>
+    </div>
+
+    <div class="tip-block">
+      <h4>Tell Claude what you already have</h4>
+      <p>Paste your existing draft. "Here's my current version — make it shorter and more direct." Claude does better when it has something to react to.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Ask for options</h4>
+      <p>"Give me 3 versions" takes the same time and gives you something to choose from, compare, or combine.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Set constraints up front</h4>
+      <p>Character limits, tone, platform (mobile vs desktop), user type. Put these at the top of your prompt, not the end.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Iterate, don't restart</h4>
+      <p>Keep the conversation going. "Make it warmer." "Now shorten it by half." "Add a sense of urgency." Claude holds the context — you don't need to re-explain each time.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Know when NOT to prompt</h4>
+      <p>
+        For precision work — exact hex codes, specific spacing values, pixel-perfect adjustments — use Figma's visual tools directly.
+        As Gui Seiz (Figma designer) puts it:
+      </p>
+      <blockquote>"No one wants to prompt for the exact hex code or shade of yellow."</blockquote>
+      <p>AI is for thinking and generating; direct manipulation is for precision.</p>
+      <p style="font-size:0.85rem; color:#888; margin-bottom:0;">
+        Source: <a href="https://www.lennysnewsletter.com/p/this-week-on-how-i-ai-from-figma" target="_blank">Lenny's Newsletter — "From Figma to Claude Code and back"</a>
+      </p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Automate your repeatable workflows</h4>
+      <p>If you have a standard process you run repeatedly (pre-launch checks, handoff steps, component review), turn it into a Claude skill. Figma's own engineers built a <code>/ship</code> skill that automates Git pushes, CI monitoring, and lint fixes. The same principle applies to design workflows.</p>
+    </div>
+
+    <div class="tip-block">
+      <h4>Structure your codebase for AI readability <span style="font-weight:400; color:#888;">(for developers)</span></h4>
+      <p>Figma's engineers found that spending 20–30% of development time restructuring code for AI legibility significantly improves Claude's output quality. Clean, well-named, modular code gets better AI-generated results — not because Claude needs perfect code, but because it can understand context and patterns more reliably.</p>
+      <p style="font-size:0.85rem; color:#888; margin-bottom:0;">
+        Source: <a href="https://www.chatprd.ai/how-i-ai/how-figma-team-syncs-design-and-code-with-claude-code-and-codex" target="_blank">ChatPRD — "How Figma team syncs design and code"</a>
+      </p>
+    </div>
+
+    <!-- SECURITY -->
+    <h2>What NOT to put into Claude</h2>
+
+    <div class="warning-block">
+      <p>Follow the <strong>paste test</strong>: if you wouldn't post it in a public Slack channel, don't put it in Claude unless you're on an enterprise plan with a signed DPA.</p>
+    </div>
+
+    <h4>Never put in</h4>
+    <ul>
+      <li>Client personal data (user names, emails, IDs)</li>
+      <li>Confidential business data (revenue figures, unreleased product plans)</li>
+      <li>API keys, credentials, or access tokens</li>
+    </ul>
+
+    <h4>Safe to put in</h4>
+    <ul>
+      <li>Design copy and UI text</li>
+      <li>Feature descriptions and user flows</li>
+      <li>Generic design questions</li>
+      <li>Your own drafts and notes</li>
+      <li>Publicly available information about the product</li>
+    </ul>
+
+    <!-- QUICK REFERENCE -->
+    <h2>Quick reference — what to use when</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Generate layout variants</td><td><span class="tag tag-figma">Figma AI</span></td></tr>
+        <tr><td>Rewrite UI copy (in canvas)</td><td><span class="tag tag-figma">Figma AI</span></td></tr>
+        <tr><td>Remove image backgrounds</td><td><span class="tag tag-figma">Figma AI</span></td></tr>
+        <tr><td>Draft all copy before designing</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Generate realistic fake data</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Write handoff / annotation notes</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Prepare presentation narrative</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Respond to client feedback</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Name components / tokens</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Check for edge cases in a flow</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Accessibility gut-check</td><td><span class="tag tag-claude">Claude</span></td></tr>
+        <tr><td>Convert Figma frame to code (<code>/implement-design</code>)</td><td><span class="tag tag-both">Claude + Plugin</span></td></tr>
+        <tr><td>Extract design tokens to codebase</td><td><span class="tag tag-both">Claude + Plugin</span></td></tr>
+        <tr><td>Map components to code (<code>/code-connect-components</code>)</td><td><span class="tag tag-both">Claude + Plugin</span></td></tr>
+        <tr><td>Generate design system rules (<code>/create-design-system-rules</code>)</td><td><span class="tag tag-both">Claude + Plugin</span></td></tr>
+        <tr><td>Sync production UI → Figma → back to code</td><td><span class="tag tag-both">Claude Code + MCP</span></td></tr>
+        <tr><td>Batch export all component states to Figma</td><td><span class="tag tag-both">Claude Code + MCP</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- SOURCES -->
+    <div class="sources">
+      <h2>Sources</h2>
+      <ol>
+        <li><a href="https://claude.com/plugins/figma" target="_blank">Figma plugin for Claude — claude.com/plugins/figma</a></li>
+        <li><a href="https://www.lennysnewsletter.com/p/this-week-on-how-i-ai-from-figma" target="_blank">Gui Seiz &amp; Alex Kern — "From Figma to Claude Code and back", Lenny's Newsletter</a></li>
+        <li><a href="https://www.chatprd.ai/how-i-ai/how-figma-team-syncs-design-and-code-with-claude-code-and-codex" target="_blank">"How Figma team syncs design and code with Claude Code and Codex", ChatPRD</a></li>
+      </ol>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Guides — Practical how-tos for your team</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fafafa;
+      padding: 2rem 1rem;
+    }
+
+    nav {
+      max-width: 780px;
+      margin: 0 auto 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    nav a { color: #7B61FF; text-decoration: none; font-weight: 600; }
+    nav a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      padding: 3rem 3.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      display: block;
+      background: #f9f8ff;
+      border: 1.5px solid #e8e4ff;
+      border-radius: 10px;
+      padding: 1.3rem 1.4rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .card:hover {
+      border-color: #7B61FF;
+      box-shadow: 0 2px 12px rgba(123,97,255,0.12);
+    }
+    .card.coming-soon {
+      background: #f7f7f7;
+      border-color: #e8e8e8;
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    .card-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #111;
+      margin-bottom: 0.2rem;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: #666;
+      line-height: 1.4;
+    }
+    .card.coming-soon .card-title::after {
+      content: " — soon";
+      font-weight: 400;
+      color: #aaa;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #f0f0f0;
+      font-size: 0.83rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+    <h1>AI Guides</h1>
+    <p class="subtitle">Practical how-tos for using Claude in your daily work — by role.</p>
+
+    <div class="grid">
+
+      <a href="figma.html" class="card">
+        <div class="card-icon">🎨</div>
+        <div class="card-title">Claude + Figma</div>
+        <div class="card-desc">For designers and developers. Workflows, prompts, and the design-code sync loop.</div>
+      </a>
+
+      <div class="card coming-soon">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Claude for BAs</div>
+        <div class="card-desc">User stories, requirements, gap analysis, and stakeholder documentation.</div>
+      </div>
+
+      <div class="card coming-soon">
+        <div class="card-icon">🗂</div>
+        <div class="card-title">Claude for PMs</div>
+        <div class="card-desc">Specs, prioritization, stakeholder comms, and discovery frameworks.</div>
+      </div>
+
+      <div class="card coming-soon">
+        <div class="card-icon">🧪</div>
+        <div class="card-title">Claude for QA</div>
+        <div class="card-desc">Test planning, automation proposals, and bug reporting.</div>
+      </div>
+
+      <div class="card coming-soon">
+        <div class="card-icon">💻</div>
+        <div class="card-title">Claude for Developers</div>
+        <div class="card-desc">Code review, debugging, PR descriptions, and documentation.</div>
+      </div>
+
+    </div>
+
+    <footer>
+      Maintained by the Waverley AI Transformation team. Suggestions? Reach out to Alla Nabatova.
+    </footer>
+  </div>
+
+</body>
+</html>
