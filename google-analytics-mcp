@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Install Google Analytics MCP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Open Sans', -apple-system, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #282828;
+      background: #fafafa;
+      padding: 2rem 1rem;
+    }
+
+    nav {
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    nav a { color: #455CC7; text-decoration: none; font-weight: 600; }
+    nav a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+
+    header {
+      background: #0F0E9F;
+      color: #fff;
+      padding: 2.5rem 3rem 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #28bdeb;
+      color: #fff;
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: #70E5F9;
+      max-width: 560px;
+    }
+
+    .content {
+      padding: 2.5rem 3rem 3rem;
+    }
+
+    .intro {
+      background: #e9f8fd;
+      border-left: 4px solid #28bdeb;
+      border-radius: 6px;
+      padding: 1rem 1.3rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem;
+    }
+    .intro strong { color: #0F0E9F; }
+
+    .step {
+      display: flex;
+      gap: 1.4rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: #0F0E9F;
+      color: #fff;
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3px;
+    }
+
+    .step-content h2 {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0F0E9F;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      font-size: 0.93rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .step-content ul {
+      padding-left: 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+    .step-content ul li {
+      font-size: 0.93rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .where-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+    .where-claude { background: #0F0E9F; color: #fff; }
+    .where-terminal { background: #282828; color: #70E5F9; }
+    .where-browser { background: #28bdeb; color: #fff; }
+
+    .tip {
+      background: #EFF2F4;
+      border-radius: 6px;
+      padding: 0.8rem 1rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: #7E7E7E;
+    }
+    .tip strong { color: #282828; }
+
+    .warning {
+      background: #fff8ee;
+      border-left: 4px solid #ff9900;
+      border-radius: 0 6px 6px 0;
+      padding: 0.8rem 1rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: #282828;
+    }
+    .warning strong { color: #e08000; }
+
+    code {
+      font-family: 'Courier New', monospace;
+      background: #EBE9E9;
+      color: #0F0E9F;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    .code-block {
+      background: #1a1a2e;
+      color: #70E5F9;
+      font-family: 'Courier New', monospace;
+      font-size: 0.83rem;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin: 0.8rem 0;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+    }
+
+    .highlight { color: #ff9900; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #EBE9E9;
+      margin: 0 0 2.5rem;
+    }
+
+    footer {
+      background: #EFF2F4;
+      text-align: center;
+      padding: 1.4rem;
+      font-size: 0.8rem;
+      color: #7E7E7E;
+    }
+    footer strong { color: #0F0E9F; font-family: 'Montserrat', system-ui, sans-serif; }
+
+    a { color: #455CC7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav><a href="index.html">← All guides</a></nav>
+
+  <div class="page">
+
+    <header>
+      <div class="badge">Setup Guide</div>
+      <h1>How to Install Google Analytics MCP</h1>
+      <p>Connect your Google Analytics data directly to Claude — no coding experience required. Follow these steps one by one.</p>
+    </header>
+
+    <div class="content">
+
+      <div class="intro">
+        <strong>What you'll end up with:</strong> Claude will be able to read your Google Analytics data and answer questions like "How many users visited our site last week?" or "What are our top traffic sources?" — right inside your chat.
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h2>Open Claude Cowork and start a session</h2>
+          <div class="where-label where-claude">🖥 In the Claude desktop app</div>
+          <p>Open the <strong>Claude desktop app</strong> on your Mac. In the left sidebar, click <strong>Cowork</strong> to open a Cowork session. You can use an existing project or create a new one — either works.</p>
+          <div class="tip"><strong>Tip:</strong> Cowork is the mode that lets Claude work with files and run commands on your computer. You'll need it for the steps below.</div>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h2>Open the Terminal app on your Mac</h2>
+          <div class="where-label where-claude">🖥 On your Mac</div>
+          <p>The next few steps require typing commands into the <strong>Terminal</strong> — a text window where you give your computer instructions by typing.</p>
+          <p>To open it:</p>
+          <ul>
+            <li>Press <code>Cmd + Space</code> to open Spotlight Search</li>
+            <li>Type <strong>Terminal</strong> and press Enter</li>
+          </ul>
+          <p>A window will appear with a blinking cursor. You'll just be copying and pasting commands — no typing from scratch.</p>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h2>Install pipx (a tool that installs other tools)</h2>
+          <div class="where-label where-terminal">⌨️ In Terminal</div>
+          <p>Copy the line below, paste it into Terminal, and press <strong>Enter</strong>:</p>
+          <div class="code-block">brew install pipx && pipx ensurepath</div>
+          <p>Wait for it to finish — it may take a minute or two. When you see the cursor again, it's done.</p>
+          <div class="warning"><strong>⚠️ Getting a "brew: command not found" error?</strong> You need to install Homebrew first. Go to <a href="https://brew.sh" target="_blank">brew.sh</a>, copy the one-line command shown there, paste it in Terminal, and press Enter. Then come back and run the command above.</div>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h2>Switch on the Google Analytics APIs</h2>
+          <div class="where-label where-browser">🌐 In your web browser</div>
+          <p>You need to turn on two services in Google Cloud so Claude is allowed to read your Analytics data. You'll need a Google account that has access to your Google Analytics.</p>
+          <ul>
+            <li>Go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> and sign in</li>
+            <li>At the top, select an existing project or create a new one (name it anything, e.g. <em>analytics-mcp</em>)</li>
+            <li>Open the <a href="https://console.cloud.google.com/apis/library/analyticsadmin.googleapis.com" target="_blank">Google Analytics Admin API</a> page and click <strong>Enable</strong></li>
+            <li>Open the <a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank">Google Analytics Data API</a> page and click <strong>Enable</strong></li>
+          </ul>
+          <div class="tip"><strong>Tip:</strong> Make sure the same project is selected in the top dropdown for both APIs.</div>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 5 -->
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h2>Create a login credential file</h2>
+          <div class="where-label where-browser">🌐 In your web browser</div>
+          <p>This creates a "key" file that lets Claude log in to Google on your behalf.</p>
+          <ul>
+            <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com/apis/credentials</a></li>
+            <li>Click <strong>+ Create Credentials → OAuth client ID</strong></li>
+            <li>If prompted to set up a consent screen first: choose <strong>External</strong>, fill in your app name (e.g. <em>analytics-mcp</em>) and email, save, then come back</li>
+            <li>Set Application type to <strong>Desktop app</strong>, give it any name, click <strong>Create</strong></li>
+            <li>Click <strong>Download JSON</strong> in the dialog that appears</li>
+            <li>Move the downloaded file to your home folder and rename it <code>analytics-mcp-credentials.json</code></li>
+          </ul>
+          <div class="tip"><strong>Where is my home folder?</strong> Open Finder → click <strong>Go</strong> in the menu bar → click <strong>Home</strong>. Drag the file there.</div>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 6 -->
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h2>Install the Google Cloud CLI tool</h2>
+          <div class="where-label where-browser">🌐 Browser + ⌨️ Terminal</div>
+          <p>Download the installer from <a href="https://cloud.google.com/sdk/docs/install" target="_blank">cloud.google.com/sdk/docs/install</a> — choose the <strong>macOS</strong> version. Once downloaded, go to Terminal and run:</p>
+          <div class="code-block">cd ~/Downloads/google-cloud-sdk
+bash install.sh</div>
+          <p>Press <strong>Y</strong> when asked. When it finishes, reload your Terminal settings:</p>
+          <div class="code-block">source ~/.zshrc</div>
+          <p>Then check it worked:</p>
+          <div class="code-block">gcloud --version</div>
+          <p>If you see a version number, you're good to go.</p>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 7 -->
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <h2>Sign in to Google from Terminal</h2>
+          <div class="where-label where-terminal">⌨️ In Terminal</div>
+          <p>Run this command. Replace <code class="highlight">YOUR_USERNAME</code> with your Mac username — it's the name shown before the <code>$</code> symbol in Terminal:</p>
+          <div class="code-block">gcloud auth application-default login \
+  --scopes https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/cloud-platform \
+  --client-id-file=/Users/<span class="highlight">YOUR_USERNAME</span>/analytics-mcp-credentials.json</div>
+          <p>A browser window will open. Sign in with the Google account that has access to your Analytics and click <strong>Allow</strong>.</p>
+          <p>When done, Terminal will print something like:</p>
+          <div class="code-block">Credentials saved to file: [/Users/yourname/.config/gcloud/application_default_credentials.json]</div>
+          <p><strong>Copy that file path</strong> — you'll need it in the next step.</p>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 8 -->
+      <div class="step">
+        <div class="step-number">8</div>
+        <div class="step-content">
+          <h2>Tell Claude how to connect to Google Analytics</h2>
+          <div class="where-label where-terminal">⌨️ In Terminal</div>
+          <p>Paste this into Terminal. Replace the two <span style="color:#e08000; font-weight:600;">highlighted values</span> with your own:</p>
+          <div class="code-block">mkdir -p ~/Library/Application\ Support/Claude && cat > ~/Library/Application\ Support/Claude/claude_desktop_config.json << 'EOF'
+{
+  "mcpServers": {
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": ["run", "analytics-mcp"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "<span class="highlight">/Users/yourname/.config/gcloud/application_default_credentials.json</span>",
+        "GOOGLE_PROJECT_ID": "<span class="highlight">your-gcp-project-id</span>"
+      }
+    }
+  }
+}
+EOF</div>
+          <ul>
+            <li>Replace the credentials path with the one Terminal printed in Step 7</li>
+            <li>Replace <code>your-gcp-project-id</code> with your project ID, visible at the top of <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+
+      <!-- STEP 9 -->
+      <div class="step">
+        <div class="step-number">9</div>
+        <div class="step-content">
+          <h2>Restart Claude and test it</h2>
+          <div class="where-label where-claude">🖥 In the Claude desktop app</div>
+          <p>Fully quit Claude with <strong>Cmd + Q</strong> and reopen it. A simple window close won't work — it needs a full restart.</p>
+          <p>Once it's back open, go to Cowork and type:</p>
+          <div class="code-block">What Google Analytics properties do I have access to?</div>
+          <p>If everything worked, Claude will list your GA accounts and properties. 🎉</p>
+          <div class="tip"><strong>Something not working?</strong> The most common issue is a typo in the credentials file path in Step 8. Check that it exactly matches what Terminal printed in Step 7.</div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <footer>
+      <strong>Waverley Software</strong> · AI Transformation Initiative · 2026
+    </footer>
+
+  </div>
+
+</body>
+</html>
