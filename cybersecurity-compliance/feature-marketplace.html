@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gym &amp; Trainer Marketplace: Life Coach AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="laws-body">
+
+<section class="laws-slide">
+
+  <a class="laws-back" href="product.html">‹ Back to Life Coach AI</a>
+
+  <div class="laws-head with-img">
+    <div class="lh-text">
+    <div class="lh-eyebrow">Business Model · Marketplace</div>
+    <h1>🏋️ Gym &amp; Trainer Marketplace</h1>
+    <p class="lh-sub">The app studies what the user's data reveals (fitness level, habits, health) to recommend the right gyms, individual trainers, and specific exercises. That layers two risks: it <strong>profiles the user on sensitive data</strong>, and to connect them it <strong>shares data with third parties</strong> it doesn't control.</p>
+  
+    </div>
+    <img class="head-img" src="img-marketplace.jpg" alt="" />
+  </div>
+
+  <!-- Actor / data-flow map -->
+  <div class="actor-map">
+
+    <div class="actor-node">
+      <div class="an-icon">🙋</div>
+      <div class="an-title">User</div>
+      <div class="an-role">Data subject</div>
+      <div class="an-sub">Books a gym or a trainer</div>
+    </div>
+
+    <div class="actor-link">
+      <div class="al-data">Health &amp; activity data</div>
+      <div class="al-arrow"></div>
+      <div class="al-tag">Used to personalize</div>
+    </div>
+
+    <div class="actor-node primary">
+      <div class="an-icon">📱</div>
+      <div class="an-title">Life Coach AI</div>
+      <div class="an-role">Controller</div>
+      <div class="an-sub">Profiles the user → recommends gyms, trainers &amp; exercises</div>
+    </div>
+
+    <div class="actor-link">
+      <div class="al-data">Minimum data for the booking</div>
+      <div class="al-arrow"></div>
+      <div class="al-tag">Data minimization</div>
+    </div>
+
+    <div class="actor-node">
+      <div class="an-icon">🏋️</div>
+      <div class="an-title">Gyms &amp; Trainers</div>
+      <div class="an-role">3rd-party recipients</div>
+      <div class="an-sub">Independent, each a separate controller</div>
+    </div>
+
+  </div>
+
+  <div class="callout warning">
+    <strong>⚠️ You're responsible for who you share with</strong>
+    Once data reaches a third-party trainer, you don't control how they use it, but you're still on the hook for the hand-off. Share too much, or with an unvetted partner, and the liability is yours.
+  </div>
+
+  <div class="bm-grid">
+
+    <div>
+      <div class="stage-label"><span class="sl-num">①</span> What the Law Expects</div>
+      <div class="law-chip">
+        <div class="lc-jur">EU · GDPR + AI Act</div>
+        <div class="lc-text">Recommending from health data is profiling on sensitive data: needs explicit consent + transparency</div>
+      </div>
+      <div class="law-chip">
+        <div class="lc-jur">EU · GDPR</div>
+        <div class="lc-text">Each gym/trainer is a separate controller: needs a data contract</div>
+      </div>
+      <div class="law-chip">
+        <div class="lc-jur">EU · GDPR</div>
+        <div class="lc-text">Share only the minimum data needed for the booking</div>
+      </div>
+      <div class="law-chip ca">
+        <div class="lc-jur">California · CCPA / CPRA</div>
+        <div class="lc-text">Sharing counts as a "sale" unless contractually limited to the service</div>
+      </div>
+      <div class="law-chip us">
+        <div class="lc-jur">US · FTC</div>
+        <div class="lc-text">You're accountable for what partners do with shared data</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="stage-label"><span class="sl-num">②</span> What We Build</div>
+      <div class="build-chip"><span class="bc-icon">💡</span><span class="bc-title">Explain why a gym, trainer or exercise was recommended</span></div>
+      <div class="build-chip"><span class="bc-icon">📝</span><span class="bc-title">Data-sharing contract with every partner</span></div>
+      <div class="build-chip"><span class="bc-icon">✂️</span><span class="bc-title">Share only the minimum needed per booking</span></div>
+      <div class="build-chip"><span class="bc-icon">✅</span><span class="bc-title">Get user consent before each share</span></div>
+      <div class="build-chip"><span class="bc-icon">🚫</span><span class="bc-title">Contractually ban partners from reselling data</span></div>
+      <div class="build-chip"><span class="bc-icon">🧾</span><span class="bc-title">Audit log of what was shared, with whom</span></div>
+      <div class="build-chip"><span class="bc-icon">🔍</span><span class="bc-title">Vet partner security before onboarding</span></div>
+    </div>
+
+  </div>
+
+</section>
+
+<script src="nav.js"></script>
+</body>
+</html>

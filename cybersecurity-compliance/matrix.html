@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requirements, Law by Law</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="laws-body">
+
+<section class="laws-slide">
+
+  <a class="laws-back" href="venn.html">‹ Back to the overlap map</a>
+
+  <div class="laws-head">
+    <div class="lh-eyebrow">EU &amp; US · The Detail</div>
+    <h1>Requirements, Law by Law</h1>
+  </div>
+
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th class="req">Requirement</th>
+          <th class="c-eu">GDPR<small>EU</small></th>
+          <th class="c-ca">CCPA / CPRA<small>California</small></th>
+          <th class="c-sec">Sectoral<small>&amp; Security</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="shared"><td class="req">Right to be informed</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+        <tr class="shared"><td class="req">Security safeguards</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+        <tr class="shared"><td class="req">Breach notification</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+        <tr class="shared"><td class="req">Audit / activity logs</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+
+        <tr><td class="req">Access, delete &amp; correct data</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"></td></tr>
+        <tr><td class="req">Data minimization</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"></td></tr>
+        <tr><td class="req">Privacy / security by design</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+        <tr><td class="req">Risk assessment (DPIA / FRIA)</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+        <tr><td class="req">Limits on selling / sharing data</td><td class="cell"></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+
+        <tr><td class="req">Explicit consent for sensitive data</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"></td><td class="cell"></td></tr>
+        <tr><td class="req">Lawful basis + DPO</td><td class="cell"><span class="yes-eu">✓</span></td><td class="cell"></td><td class="cell"></td></tr>
+        <tr><td class="req">Opt-out &amp; "limit use" of sensitive data</td><td class="cell"></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"></td></tr>
+        <tr><td class="req">Private right of action</td><td class="cell"></td><td class="cell"><span class="yes-ca">✓</span></td><td class="cell"></td></tr>
+        <tr><td class="req">Fast incident reporting (24h / 72h)</td><td class="cell"></td><td class="cell"></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+        <tr><td class="req">Industry safeguards &amp; secure-by-design</td><td class="cell"></td><td class="cell"></td><td class="cell"><span class="yes-sec">✓</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Build the shaded rows first, they cover most of every law</strong>
+    <span class="co-then">Then add the edges: <strong>consent</strong> for the EU, and <strong>opt-out &amp; "limit use"</strong> for California.</span>
+  </div>
+
+</section>
+
+<script src="nav.js"></script>
+</body>
+</html>

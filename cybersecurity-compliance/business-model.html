@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LifeCoach AI: Business Model and Data Flows</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body.bm-body { display: block; background: var(--white); }
+
+    .bm-slide {
+      min-height: 100vh;
+      padding: 44px 52px 80px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(112,229,249,0.08), transparent 38%),
+        radial-gradient(circle at 8% 92%, rgba(69,92,199,0.06), transparent 42%),
+        var(--white);
+    }
+
+    .bm-slide h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 3.6vw, 46px);
+      color: var(--royal-blue);
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+
+    /* Fixed-ratio stage so % card positions and the SVG viewBox stay aligned */
+    .bm-stage {
+      position: relative;
+      width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      aspect-ratio: 1600 / 900;
+    }
+
+    .bm-stage svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .bm-node {
+      position: absolute;
+      z-index: 2;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(40,40,40,0.08);
+      padding: 20px 22px;
+    }
+
+    .bm-node .bm-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .bm-node .bm-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .bm-node h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(15px, 1.3vw, 21px);
+      color: var(--dark);
+      line-height: 1.1;
+    }
+    .bm-node .bm-role {
+      font-size: clamp(11px, 0.9vw, 14px);
+      color: #6B7280;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .bm-node .bm-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(31,157,107,0.10);
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin: 12px 0 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(11px, 1vw, 15px);
+      color: #157A52;
+    }
+    .bm-node .bm-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #1F9D6B;
+      color: #fff;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .bm-node p {
+      font-size: clamp(11px, 0.95vw, 14px);
+      color: #4B5563;
+      line-height: 1.4;
+    }
+
+    /* Center hub node (dark) */
+    .bm-hub {
+      background: #171636;
+      border: none;
+      color: var(--white);
+    }
+    .bm-hub .bm-icon { background: var(--mauve); color: #fff; }
+    .bm-hub h3 { color: #fff; font-size: clamp(17px, 1.6vw, 26px); }
+    .bm-hub p { color: rgba(255,255,255,0.80); margin-top: 6px; }
+    .bm-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+    .bm-chip {
+      background: rgba(255,255,255,0.10);
+      color: #C7C4F0;
+      border-radius: 8px;
+      padding: 5px 11px;
+      font-size: clamp(10px, 0.85vw, 13px);
+      font-weight: 600;
+    }
+
+    /* Node placement (percentages over the fixed-ratio stage) */
+    .n-alice    { left: 0;    top: 40%; width: 21%; }
+    .n-hub      { left: 40%;  top: 35%; width: 20%; }
+    .n-employer { left: 79%;  top: 10%; width: 21%; }
+    .n-gyms     { left: 79%;  top: 61%; width: 21%; }
+
+    /* Flow labels drawn as HTML pills over the SVG (sit in the lanes between cards) */
+    .bm-flowlabel {
+      position: absolute;
+      z-index: 5;
+      transform: translate(-50%, -50%);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(10px, 0.9vw, 14px);
+      padding: 4px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(40,40,40,0.06);
+    }
+    .fl-data  { color: #0E8FB8; }
+    .fl-money { color: #157A52; }
+    .fl-value { color: var(--mauve); }
+
+    .bm-legend {
+      display: flex;
+      gap: 30px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+    .bm-legend .leg {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 600; font-size: clamp(12px, 1vw, 15px); color: var(--dark);
+    }
+    .bm-legend .swatch { width: 30px; height: 4px; border-radius: 2px; }
+  </style>
+</head>
+<body class="bm-body">
+
+<section class="bm-slide">
+
+  <h1>LifeCoach AI: Business Model and Data Flows</h1>
+
+  <div class="bm-stage">
+
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <marker id="ah-data"  markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#28BDEB"/></marker>
+        <marker id="ah-money" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1F9D6B"/></marker>
+        <marker id="ah-value" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#455CC7"/></marker>
+      </defs>
+
+      <!-- Alice <-> Hub -->
+      <line x1="340" y1="410" x2="630" y2="392" stroke="#28BDEB" stroke-width="4" marker-end="url(#ah-data)"/>
+      <line x1="340" y1="462" x2="630" y2="446" stroke="#1F9D6B" stroke-width="4" marker-end="url(#ah-money)"/>
+      <line x1="630" y1="505" x2="340" y2="522" stroke="#455CC7" stroke-width="4" marker-end="url(#ah-value)"/>
+
+      <!-- Hub <-> Employer -->
+      <line x1="965" y1="405" x2="1256" y2="258" stroke="#28BDEB" stroke-width="4" marker-end="url(#ah-data)"/>
+      <line x1="1256" y1="322" x2="965" y2="448" stroke="#1F9D6B" stroke-width="4" marker-end="url(#ah-money)"/>
+
+      <!-- Hub <-> Gyms -->
+      <line x1="1256" y1="642" x2="965" y2="475" stroke="#455CC7" stroke-width="4" marker-end="url(#ah-value)"/>
+      <line x1="965" y1="520" x2="1256" y2="680" stroke="#1F9D6B" stroke-width="4" marker-end="url(#ah-money)"/>
+    </svg>
+
+    <!-- Flow labels -->
+    <div class="bm-flowlabel fl-data"  style="left:30.5%; top:44%;">Personal data</div>
+    <div class="bm-flowlabel fl-money" style="left:30.5%; top:51%;">$ Subscription</div>
+    <div class="bm-flowlabel fl-value" style="left:30.5%; top:58%;">Coaching &amp; insights</div>
+    <div class="bm-flowlabel fl-data"  style="left:69.5%; top:31%;">Employee data</div>
+    <div class="bm-flowlabel fl-money" style="left:69.5%; top:41%;">$$$ for data</div>
+    <div class="bm-flowlabel fl-value" style="left:69.5%; top:61%;">Trainer matches</div>
+    <div class="bm-flowlabel fl-money" style="left:69.5%; top:71%;">$ Commission</div>
+
+    <!-- Alice -->
+    <div class="bm-node n-alice">
+      <div class="bm-title-row">
+        <div class="bm-icon" style="background:#EDE9FE;">🧑</div>
+        <div>
+          <h3>Alice</h3>
+          <div class="bm-role">Consumer / subscriber</div>
+        </div>
+      </div>
+      <div class="bm-badge"><span class="bm-num">1</span> Pays $19 / month</div>
+      <p>Shares health, location, spending &amp; chat (knowingly or not).</p>
+    </div>
+
+    <!-- Hub -->
+    <div class="bm-node bm-hub n-hub">
+      <div class="bm-title-row">
+        <div class="bm-icon">✦</div>
+        <h3>LifeCoach AI</h3>
+      </div>
+      <p>Profiles behaviour from every signal, then monetises the profile three ways.</p>
+      <div class="bm-chips">
+        <span class="bm-chip">Health</span>
+        <span class="bm-chip">Location</span>
+        <span class="bm-chip">Spending</span>
+        <span class="bm-chip">Chat</span>
+      </div>
+    </div>
+
+    <!-- Employer -->
+    <div class="bm-node n-employer">
+      <div class="bm-title-row">
+        <div class="bm-icon" style="background:#EFF2F4;">🏢</div>
+        <div>
+          <h3>Employer / HR</h3>
+          <div class="bm-role">Offers app as a health perk</div>
+        </div>
+      </div>
+      <div class="bm-badge"><span class="bm-num">2</span> Pays a premium for the data</div>
+      <p>Receives aggregated insight into employees' wellbeing &amp; behaviour.</p>
+    </div>
+
+    <!-- Gyms -->
+    <div class="bm-node n-gyms">
+      <div class="bm-title-row">
+        <div class="bm-icon" style="background:#EFF2F4;">🏋️</div>
+        <div>
+          <h3>Gyms &amp; Trainers</h3>
+          <div class="bm-role">Marketplace partners</div>
+        </div>
+      </div>
+      <div class="bm-badge"><span class="bm-num">3</span> Commission on every booking</div>
+      <p>Get matched, paying clients from AI-driven recommendations.</p>
+    </div>
+
+  </div>
+
+  <div class="bm-legend">
+    <div class="leg"><span class="swatch" style="background:#28BDEB;"></span> Personal data</div>
+    <div class="leg"><span class="swatch" style="background:#1F9D6B;"></span> Money</div>
+    <div class="leg"><span class="swatch" style="background:#455CC7;"></span> Product value</div>
+  </div>
+
+</section>
+
+<script src="nav.js"></script>
+</body>
+</html>

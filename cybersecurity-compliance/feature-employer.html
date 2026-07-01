@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employer Benefit: Life Coach AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="laws-body">
+
+<section class="laws-slide">
+
+  <a class="laws-back" href="product.html">‹ Back to Life Coach AI</a>
+
+  <div class="laws-head with-img">
+    <div class="lh-text">
+    <div class="lh-eyebrow">Business Model · B2B</div>
+    <h1>🏢 Sold as an Employer Benefit</h1>
+    <p class="lh-sub">The app is offered to staff as a health perk, and the employer's HR receives data on employees. The legal risk lives in that hand-off: what crosses from the app to HR, and on what basis.</p>
+  
+    </div>
+    <img class="head-img" src="img-employer.jpg" alt="" />
+  </div>
+
+  <!-- Actor / data-flow map -->
+  <div class="actor-map">
+
+    <div class="actor-node">
+      <div class="an-icon">👥</div>
+      <div class="an-title">Employees</div>
+      <div class="an-role">Data subjects</div>
+      <div class="an-sub">Use the app as individuals</div>
+    </div>
+
+    <div class="actor-link">
+      <div class="al-data">Raw health &amp; wellness data</div>
+      <div class="al-arrow"></div>
+      <div class="al-tag">With explicit consent</div>
+    </div>
+
+    <div class="actor-node primary">
+      <div class="an-icon">📱</div>
+      <div class="an-title">Life Coach AI</div>
+      <div class="an-role">Processor</div>
+      <div class="an-sub">Holds raw data, builds the aggregate</div>
+    </div>
+
+    <div class="actor-link">
+      <div class="al-data">Aggregated statistics only</div>
+      <div class="al-arrow"></div>
+      <div class="al-tag">No re-identification</div>
+    </div>
+
+    <div class="actor-node">
+      <div class="an-icon">🏢</div>
+      <div class="an-title">Employer HR</div>
+      <div class="an-role">Recipient</div>
+      <div class="an-sub">Sees team-level trends, never individuals</div>
+    </div>
+
+  </div>
+
+  <div class="callout warning">
+    <strong>⚠️ The consent trap</strong>
+    In an employment relationship there's a power imbalance, so regulators say employee "consent" is rarely freely given. You usually can't lean on consent as your legal basis, and HR must never be able to single out an individual from the aggregates.
+  </div>
+
+  <div class="bm-grid">
+
+    <div>
+      <div class="stage-label"><span class="sl-num">①</span> What the Law Expects</div>
+      <div class="law-chip">
+        <div class="lc-jur">EU · GDPR</div>
+        <div class="lc-text">Employee consent is fragile (power imbalance): need a sounder lawful basis</div>
+      </div>
+      <div class="law-chip">
+        <div class="lc-jur">EU · GDPR</div>
+        <div class="lc-text">HR may only receive truly anonymized aggregates</div>
+      </div>
+      <div class="law-chip">
+        <div class="lc-jur">Poland · Labour law</div>
+        <div class="lc-text">National rules limit how employers may monitor staff</div>
+      </div>
+      <div class="law-chip us">
+        <div class="lc-jur">US · HIPAA</div>
+        <div class="lc-text">If offered through the employer's health plan, we become a "business associate": full HIPAA obligations</div>
+      </div>
+      <div class="law-chip ca">
+        <div class="lc-jur">California · CCPA / CPRA</div>
+        <div class="lc-text">Employees keep data rights over what is collected &amp; shared</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="stage-label"><span class="sl-num">②</span> What We Build</div>
+      <div class="build-chip"><span class="bc-icon">📊</span><span class="bc-title">Aggregate &amp; anonymize before HR sees anything</span></div>
+      <div class="build-chip"><span class="bc-icon">🔢</span><span class="bc-title">Minimum group size: no small-team re-identification</span></div>
+      <div class="build-chip"><span class="bc-icon">📝</span><span class="bc-title">Data-processing agreement with each employer</span></div>
+      <div class="build-chip"><span class="bc-icon">🤝</span><span class="bc-title">Sign a Business Associate Agreement (BAA) if via a health plan</span></div>
+      <div class="build-chip"><span class="bc-icon">🙋</span><span class="bc-title">Make participation genuinely voluntary</span></div>
+      <div class="build-chip"><span class="bc-icon">🧱</span><span class="bc-title">Keep employee data walled off from consumer data</span></div>
+      <div class="build-chip"><span class="bc-icon">📈</span><span class="bc-title">Give HR dashboards, never individual records</span></div>
+    </div>
+
+  </div>
+
+</section>
+
+<script src="nav.js"></script>
+</body>
+</html>
